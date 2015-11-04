@@ -9,7 +9,7 @@ REGISTER xAODparser-*.jar
 REGISTER json.jar
 REGISTER '/usr/lib/pig/lib/avro-*.jar';
 
-RECS = LOAD '/atlas/analytics/xAODcollector/2015-09-10.json'  using PigStorage as (Rec:chararray);
+RECS = LOAD '/user/rucio01/nongrid_traces/2015-10-*'  using PigStorage as (Rec:chararray);
 describe RECS;
 --dump RECS;
 

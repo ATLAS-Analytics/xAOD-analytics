@@ -8,7 +8,7 @@ REGISTER json.jar
 
 -- ****************** TRACES *************************
 
-RECS = LOAD '/atlas/analytics/xAODcollector/2015-*.json'  using PigStorage as (Rec:chararray);
+RECS = LOAD '/user/rucio01/nongrid_traces/2015-09-*.json'  using PigStorage as (Rec:chararray);
 --dump RECS;
 
 B = FOREACH RECS GENERATE FLATTEN(xAODparser.Parser(Rec));
