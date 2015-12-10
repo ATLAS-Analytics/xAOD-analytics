@@ -12,8 +12,8 @@ print(res.content)
 
 es = Elasticsearch([{'host':'cl-analytics.mwt2.org', 'port':9200}])
 
-df = open('heatmapEvents.csv')
-rws=df.readlines()[:100]
+df = open('heatmap.csv')
+rws=df.readlines()
 print len(rws)
 
 # d = datetime.now()
