@@ -13,9 +13,9 @@ RECS = LOAD '/user/rucio01/nongrid_traces/$INPD.json'  using PigStorage as (Rec:
 B = FOREACH RECS GENERATE FLATTEN(xAODparser.Parser(Rec));
 describe B;
 
-F = filter B BY PandaID > 0L;
+-- F = filter B BY PandaID > 0L;
 
-D = foreach F generate line::timeentry as timestamp, line::PandaID as PandaID, line::TaskID as TaskID, SIZE(line::accessedFiles) as nAccessedFiles, SIZE(line::AccessedBranches) as nAccessedBranches, SIZE(line::AccessedContainers) as nAccessedContainers, line::fileType as FileType, line::IP as IP, line::ROOT_RELEASE as ROOT_RELEASE, line::ReadCalls as ReadCalls, line::ReadSize as ReadSize, line::CacheSize as CacheSize, line::storageType as StorageType;
+D = foreach B generate line::timeentry as timestamp, line::PandaID as PandaID, line::TaskID as TaskID, SIZE(line::accessedFiles) as nAccessedFiles, SIZE(line::AccessedBranches) as nAccessedBranches, SIZE(line::AccessedContainers) as nAccessedContainers, line::fileType as FileType, line::IP as IP, line::ROOT_RELEASE as ROOT_RELEASE, line::ReadCalls as ReadCalls, line::ReadSize as ReadSize, line::CacheSize as CacheSize, line::storageType as StorageType;
 
 
 STORE D INTO 'xaod_$INPD/jobs_data' USING EsStorage();
