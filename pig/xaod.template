@@ -1,0 +1,26 @@
+curl -XDELETE cl-analytics.mwt2.org:9200/_template/xaod
+curl -XDELETE 'cl-analytics.mwt2.org:9200/xaod_*'
+
+curl -XPOST 'http://cl-analytics.mwt2.org:9200/_template/xaod' -d '{
+    "template" : "xaod_*",
+    "settings" : {
+        "number_of_shards" : 5,
+        "number_of_replicas" : 1
+    },
+    "mappings" : {
+        "jobs_data" : {
+            "_source" : { "enabled" : true },
+            "properties" : {
+                "FileType" : { "type" : "string", "index" : "not_analyzed" },
+                "ROOT_RELEASE" : { "type" : "string", "index" : "not_analyzed" },
+                "storageType" : { "type" : "string", "index" : "not_analyzed" }
+            }
+        }
+    }
+}'
+
+
+
+
+
+
