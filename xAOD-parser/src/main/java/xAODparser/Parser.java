@@ -39,7 +39,7 @@ public class Parser extends EvalFunc<Tuple> {
 			JSONArray jAB = obj.getJSONArray("accessedBranches");
 			JSONArray jAC = obj.getJSONArray("accessedContainers");
 
-			String fileType = "not Sure";
+			String fileType = "notSure";
 			String storageType = "local";
 
 			Tuple AFtuple = tupleFactory.newTuple(jAF.length());
@@ -100,7 +100,7 @@ public class Parser extends EvalFunc<Tuple> {
 				}
 			}
 
-			Tuple output = tupleFactory.newTuple(12);
+			Tuple output = tupleFactory.newTuple(13);
 			output.set(0, obj.optLong("PandaID"));
 			output.set(1, obj.optLong("PanDA_TaskID"));
 			output.set(2, obj.getString("ip"));
@@ -113,6 +113,7 @@ public class Parser extends EvalFunc<Tuple> {
 			output.set(9, ACmap);
 			output.set(10, fileType);
 			output.set(11, storageType);
+			output.set(12, obj.optLong("timeentry")*1000);
 
 			return output;
 		} catch (JSONException e) {
@@ -152,6 +153,7 @@ public class Parser extends EvalFunc<Tuple> {
 			retSchema.add(new Schema.FieldSchema("AccessedContainers", DataType.MAP));
 			retSchema.add(new Schema.FieldSchema("fileType", DataType.CHARARRAY));
 			retSchema.add(new Schema.FieldSchema("storageType", DataType.CHARARRAY));
+			retSchema.add(new Schema.FieldSchema("timeentry", DataType.LONG));
 
 			fSchema.add(new Schema.FieldSchema("line", retSchema, DataType.TUPLE));
 
