@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import sys
 from datetime import datetime
 from elasticsearch import Elasticsearch
 from elasticsearch import helpers
@@ -16,25 +17,21 @@ df = open('heatmap.csv')
 rws=df.readlines()
 print len(rws)
 
-# d = datetime.now()
-# ind="xAOD_test-"+str(d.year)+"."+str(d.month)+"."+str(d.day)
-ind="xaod_test-2015.12.08"
-
+ind="xaod_"+sys.argv[1]
 
 aLotOfData=[]
 for l in rws:
-    els=l.split(',',3)
-    acc=els[3].replace('"','')
+    els=l.split(',',4)
+    acc=els[4].replace('"','')
     acc=acc.split('},{')
-    accB=acc[0][2:]
+    accB=acc[0][1:]
     branches=accB.split(',')
     for b in branches:
-        data = {
-            '_index': ind
-            }
-        data['TaskID']=int(els[0])
-        data['FileType']=els[1]
+        data = { '_index': ind }
+        data['FileType']=els[0]
+        data['Grid']=int(els[1])
         data['nJobs']=int(els[2])
+        data['timestamp']=long(els[3])
         kv=b.split("=")
         if len(kv)<2: 
             #print "empty:", kv
@@ -43,7 +40,7 @@ for l in rws:
         data['_type']='BranchAccesses'
         try:
             data['branch']=kv[0].replace(".",":").lstrip()
-            data['events']=int(kv[1])
+            data['jobs']=int(kv[1])
         except:
             print kv
             print l
@@ -52,6 +49,11 @@ for l in rws:
     accC=acc[1].rstrip('}\n')
     containers=accC.split(',')
     for b in branches:
+        data = { '_index': ind }
+        data['FileType']=els[0]
+        data['Grid']=int(els[1])
+        data['nJobs']=int(els[2])
+        data['timestamp']=long(els[3])
         kv=b.split("=")
         if len(kv)<2: 
             #print "empty:", kv
@@ -59,8 +61,8 @@ for l in rws:
             continue
         data['_type']='ContainerAccesses'
         try:
-            data['branch']=kv[0].rstrip(".").replace(".",":")
-            data['events']=int(kv[1])
+            data['container']=kv[0].strip().rstrip(".").replace(".",":")
+            data['jobs']=int(kv[1])
         except:
             print kv
             print l
