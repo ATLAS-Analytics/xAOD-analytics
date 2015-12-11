@@ -13,12 +13,12 @@ describe B;
 -- dump B;
 
 
-F = filter B BY PandaID > 0L;
+-- F = filter B BY PandaID > 0L;
 
-D = foreach F generate (line::PandaID==0?0:1) as Grid, line::AccessedBranches as AB, line::AccessedContainers as AC, line::fileType as FT, line::timeentry;
+D = foreach B generate (line::PandaID==0?0:1) as Grid, line::AccessedBranches as AB, line::AccessedContainers as AC, line::fileType as FT, line::timeentry;
 
-G = GROUP D by FT;
-S = FOREACH G GENERATE group, AVG(D.line::timeentry) as timestamp, FLATTEN(xAODparser.HeatMapCounts(D.AB)) as AccB, FLATTEN(xAODparser.HeatMapCounts(D.AC)) as AccC;
+G = GROUP D by (FT,Grid);
+S = FOREACH G GENERATE FLATTEN(group) as (FileType, Grid), COUNT(D.Grid) as Jobs, ROUND(AVG(D.line::timeentry)) as timestamp, FLATTEN(xAODparser.HeatMapCounts(D.AB)) as AccB, FLATTEN(xAODparser.HeatMapCounts(D.AC)) as AccC;
 describe S;
 dump S;
 
