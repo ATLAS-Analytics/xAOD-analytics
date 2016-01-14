@@ -8,7 +8,7 @@ REGISTER '/afs/cern.ch/user/i/ivukotic/ATLAS-Hadoop/pigCodes/Panda/JobArchive/el
 define EsStorage org.elasticsearch.hadoop.pig.EsStorage('es.nodes=http://cl-analytics.mwt2.org:9200');
 
 
-RECS = LOAD '/user/rucio01/nongrid_traces/$INPD.json'  using PigStorage as (Rec:chararray);
+RECS = LOAD 'hdfs://p01001533040197.cern.ch:9000//user/rucio01/nongrid_traces/$INPD.json'  using PigStorage as (Rec:chararray);
 
 B = FOREACH RECS GENERATE FLATTEN(xAODparser.Parser(Rec));
 describe B;
