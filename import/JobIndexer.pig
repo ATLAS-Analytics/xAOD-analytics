@@ -5,8 +5,9 @@ REGISTER /afs/cern.ch/user/i/ivukotic/xAOD-analytics/libs/json.jar
 
 REGISTER '/afs/cern.ch/user/i/ivukotic/ATLAS-Hadoop/pigCodes/Panda/JobArchive/elasticsearch-hadoop-pig-2.2.0-beta1.jar'
 
-define EsStorage org.elasticsearch.hadoop.pig.EsStorage('es.nodes=http://cl-analytics.mwt2.org:9200');
-
+define EsStorage org.elasticsearch.hadoop.pig.EsStorage('es.nodes=http://cl-analytics.mwt2.org:9200','es.http.timeout = 5m');
+SET pig.noSplitCombination TRUE;
+SET default_parallel 5;
 
 RECS = LOAD 'hdfs://p01001532965510.cern.ch:9000//user/rucio01/nongrid_traces/$INPD.json'  using PigStorage as (Rec:chararray);
 
