@@ -6,12 +6,13 @@ from elasticsearch import Elasticsearch, exceptions as es_exceptions
 from elasticsearch import helpers
 
 
-print "make sure we are connected right..."
-import requests
-res = requests.get('http://cl-analytics.mwt2.org:9200')
-print(res.content)
+#print "make sure we are connected right..."
+#import requests
+#res = requests.get('http://cl-analytics.mwt2.org:9200')
+#print(res.content)
 
 es = Elasticsearch([{'host':'cl-analytics.mwt2.org', 'port':9200}])
+es.cluster.health(wait_for_status='yellow', request_timeout=10)
 
 df = open('heatmap.csv')
 rws=df.readlines()
@@ -33,7 +34,7 @@ for l in rws:
         data['nJobs']=int(els[2])
         data['timestamp']=long(els[3])
         kv=b.split("=")
-        if len(kv)<2: 
+        if len(kv)<2:
             #print "empty:", kv
             #print l
             continue
@@ -55,7 +56,7 @@ for l in rws:
         data['nJobs']=int(els[2])
         data['timestamp']=long(els[3])
         kv=b.split("=")
-        if len(kv)<2: 
+        if len(kv)<2:
             #print "empty:", kv
             #print l
             continue
@@ -72,14 +73,14 @@ for l in rws:
 
 try:
     res = helpers.bulk(es, aLotOfData, raise_on_exception=True)
-    print threading.current_thread().name, "\t inserted:",res[0], '\tErrors:',res[1]
+    print "inserted:",res[0], '\tErrors:',res[1]
     aLotOfData=[]
 except es_exceptions.ConnectionError as e:
-    print 'ConnectionError ', e
+    print 'Connection Error >>> ', e
 except es_exceptions.TransportError as e:
-    print 'TransportError ', e
+    print 'Transport Error >>> ', e
 except helpers.BulkIndexError as e:
-    print e[0]
+    print 'Bulk indexing Error >>> ', e[0]
     for i in e[1]:
         print i
 except:
