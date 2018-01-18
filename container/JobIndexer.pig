@@ -1,9 +1,9 @@
 REGISTER '/usr/lib/pig/piggybank.jar' ;
 REGISTER '/usr/lib/pig/lib/avro-*.jar';
-REGISTER /afs/cern.ch/user/i/ivukotic/xAOD-analytics/xAOD-parser/target/xAODparser-*.jar
-REGISTER /afs/cern.ch/user/i/ivukotic/xAOD-analytics/libs/json.jar
+REGISTER ../xAOD-parser/target/xAODparser-*.jar
+REGISTER ../libs/json.jar
 
-REGISTER '/afs/cern.ch/user/i/ivukotic/ATLAS-Hadoop/import/elasticsearch-hadoop-5.6.1.jar';
+REGISTER '/elasticsearch-hadoop-6.1.1/dist/elasticsearch-hadoop-pig-6.1.1.jar';
 
 
 define EsStorage org.elasticsearch.hadoop.pig.EsStorage('es.nodes=http://atlas-kibana.mwt2.org:9200','es.http.timeout = 5m');
