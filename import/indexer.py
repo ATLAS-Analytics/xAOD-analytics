@@ -11,7 +11,7 @@ from elasticsearch import helpers
 #res = requests.get('http://cl-analytics.mwt2.org:9200')
 #print(res.content)
 
-es = Elasticsearch([{'host':'cl-analytics.mwt2.org', 'port':9200}])
+es = Elasticsearch([{'host':'atlas-kibana.mwt2.org', 'port':9200}])
 es.cluster.health(wait_for_status='yellow', request_timeout=10)
 
 df = open('heatmap.csv')
