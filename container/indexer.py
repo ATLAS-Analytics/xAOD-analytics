@@ -12,7 +12,7 @@ df = open('heatmap.csv')
 rws = df.readlines()
 print len(rws)
 
-ind = "xaod_" + sys.argv[1]
+ind = "xaod_accesses_" + sys.argv[1]
 
 aLotOfData = []
 for l in rws:
