@@ -18,7 +18,7 @@ describe B;
 C = foreach B generate line::timeentry as timestamp, line::PandaID as PandaID, line::TaskID as TaskID, SIZE(line::accessedFiles) as nAccessedFiles, SIZE(line::AccessedBranches) as nAccessedBranches, SIZE(line::AccessedContainers) as nAccessedContainers, line::fileType as FileType, line::IP as IP, line::ROOT_RELEASE as ROOT_RELEASE, line::ReadCalls as ReadCalls, line::ReadSize as ReadSize, line::CacheSize as CacheSize, line::storageType as StorageType;
 
 
-STORE C INTO 'xaod_$INDE/jobs_data' USING EsStorage();
+STORE C INTO 'xaod_job_accesses_$INDE/doc' USING EsStorage();
 
 
 rmf heatmap.csv
