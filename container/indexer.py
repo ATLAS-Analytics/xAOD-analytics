@@ -29,8 +29,7 @@ for l in rws:
         data['timestamp'] = long(els[3])
         kv = b.split("=")
         if len(kv) < 2:
-            # print "empty:", kv
-            # print l
+            # print "empty:", kv, l
             continue
         data['type'] = 'BranchAccesses'
         data['_type'] = 'doc'
