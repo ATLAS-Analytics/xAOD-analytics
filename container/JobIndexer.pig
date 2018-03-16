@@ -3,7 +3,7 @@ REGISTER '/usr/lib/pig/lib/avro-*.jar';
 REGISTER ../xAOD-parser/target/xAODparser-*.jar
 REGISTER ../libs/json.jar
 
-REGISTER '/elasticsearch-hadoop-6.2.2/dist/elasticsearch-hadoop-pig-6.2.2.jar';
+REGISTER '/elasticsearch-hadoop/elasticsearch-hadoop-pig.jar';
 
 
 define EsStorage org.elasticsearch.hadoop.pig.EsStorage('es.nodes=http://atlas-kibana.mwt2.org:9200','es.http.timeout = 5m');
