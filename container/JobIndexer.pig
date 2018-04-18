@@ -1,7 +1,7 @@
 REGISTER '/usr/lib/pig/piggybank.jar' ;
 REGISTER '/usr/lib/pig/lib/avro-*.jar';
-REGISTER ../xAOD-parser/target/xAODparser-*.jar
-REGISTER ../libs/json.jar
+REGISTER ../xAOD-parser/target/xAODparser-*.jar;
+REGISTER '/usr/lib/pig/lib/json-*.jar';
 
 REGISTER '/elasticsearch-hadoop/elasticsearch-hadoop-pig.jar';
 

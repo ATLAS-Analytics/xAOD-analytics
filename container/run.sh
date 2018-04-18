@@ -1,8 +1,8 @@
 #!/bin/bash
 
 DateToProcess=$(date +%Y-%m-%d -d "-1day")
-IND=$(date +%Y.%m -d "-1day")
-echo "Indexing...  "${DateToProcess}
+IND=$(date +%Y-%m -d "-1day")
+echo "Job Indexing...  "${DateToProcess}
 pig -4 log4j.properties -f JobIndexer.pig -param INPD=${DateToProcess} -param INDE=${IND}
 rc=$?; if [[ $rc != 0 ]]; then 
     echo "problem with pig indexer. Exiting."
