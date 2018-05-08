@@ -1,10 +1,10 @@
 #!/bin/bash
  
-Ind="2018-01"
+IND="2018-01"
 for i in $(seq -f "%02g" 1 31)
 do
 
-DateToProcess="$Ind-$i"
+DateToProcess="$IND-$i"
 echo "Job Indexing...  "${DateToProcess}
 
 pig -4 log4j.properties -f JobIndexer.pig -param INPD=${DateToProcess}
