@@ -15,7 +15,7 @@ RECS = LOAD 'hdfs://analytix//user/rucio01/nongrid_traces/$INPD.json'  using Pig
 B = FOREACH RECS GENERATE FLATTEN(xAODparser.Parser(Rec));
 -- describe B;
 
-/*
+
 C = foreach B generate 
     line::timeentry as timestamp, 
     line::PandaID as PandaID, 
@@ -30,8 +30,8 @@ C = foreach B generate
     line::ReadSize as ReadSize, 
     line::CacheSize as CacheSize, 
     line::storageType as StorageType;
+    
 STORE C INTO 'xaod_job_accesses_$INDE/doc' USING EsStorage();
-*/
 
 rmf heatmap.csv
 

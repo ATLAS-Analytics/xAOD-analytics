@@ -7,7 +7,7 @@ do
 DateToProcess="$IND-$i"
 echo "Job Indexing...  "${DateToProcess}
 
-pig -4 log4j.properties -f JobIndexer.pig -param INPD=${DateToProcess}
+pig -4 log4j.properties -f JobIndexer.pig -param INPD=${DateToProcess} -param INDE=${IND}
 rc=$?; if [[ $rc != 0 ]]; then 
     echo "problem with pig indexer. Exiting."
     exit $rc
