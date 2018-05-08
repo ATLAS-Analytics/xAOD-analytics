@@ -1,8 +1,12 @@
 #!/bin/bash
+ 
+Ind="2018-01"
+for i in $(seq -f "%02g" 1 31)
+do
 
-DateToProcess=$(date +%Y-%m-%d -d "-1day")
-IND=$(date +%Y-%m -d "-1day")
+DateToProcess="$Month-$i"
 echo "Job Indexing...  "${DateToProcess}
+
 pig -4 log4j.properties -f JobIndexer.pig -param INPD=${DateToProcess}
 rc=$?; if [[ $rc != 0 ]]; then 
     echo "problem with pig indexer. Exiting."
@@ -23,3 +27,5 @@ rc=$?; if [[ $rc != 0 ]]; then
     exit $rc
 fi
 echo "upload finished."
+   
+done
