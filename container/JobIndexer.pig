@@ -6,7 +6,14 @@ REGISTER '/usr/lib/pig/lib/json-*.jar';
 REGISTER '/elasticsearch-hadoop/elasticsearch-hadoop-pig.jar';
 
 
-define EsStorage org.elasticsearch.hadoop.pig.EsStorage('es.nodes=http://atlas-kibana.mwt2.org:9200','es.http.timeout = 5m');
+define EsStorage org.elasticsearch.hadoop.pig.EsStorage(
+    'es.nodes=http://es-head01.mwt2.org,http://es-head02.mwt2.org,http://es-head03.mwt2.org',
+    'es.port=9200',
+    'es.http.timeout=5m',
+    'es.batch.size.entries=10000'
+    );
+--     'es.mapping.id=PandaID',
+
 SET pig.noSplitCombination TRUE;
 SET default_parallel 5;
 
@@ -30,7 +37,7 @@ C = foreach B generate
     line::ReadSize as ReadSize, 
     line::CacheSize as CacheSize, 
     line::storageType as StorageType;
-    
+
 STORE C INTO 'xaod_job_accesses_$INDE/doc' USING EsStorage();
 
 rmf heatmap.csv
